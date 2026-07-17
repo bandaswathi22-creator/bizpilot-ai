@@ -13,233 +13,118 @@ export default function AgentChat({ agentName }: AgentChatProps) {
   const [loading, setLoading] = useState(false);
 
 
-  const getResponse = () => {
+  async function sendQuestion() {
 
     if (!question.trim()) {
-      setResponse("⚠️ Please enter a business question.");
+      setResponse("⚠️ Please enter a question.");
       return;
     }
 
 
     setLoading(true);
+    setResponse("");
 
 
-    setTimeout(() => {
+    try {
 
-      let answer = "";
+      const res = await fetch("/api/chat", {
 
+        method: "POST",
 
-      switch (agentName) {
+        headers: {
+          "Content-Type": "application/json",
+        },
 
+        body: JSON.stringify({
+          agentName,
+          question,
+        }),
 
-        case "Sales Agent":
+      });
 
-          answer = `
-📈 Sales Intelligence Report
 
-Question:
-"${question}"
+      const data = await res.json();
 
-Recommendations:
 
-✅ Identify your highest-value customer segments.
-✅ Improve your sales funnel.
-✅ Create a follow-up strategy.
-✅ Track conversion metrics.
-          `;
+      console.log("AI RESPONSE:", data);
 
-          break;
 
+      setResponse(
+        data.answer || "⚠️ No response received."
+      );
 
 
-        case "Finance Agent":
+    } catch (error) {
 
-          answer = `
-💰 Finance Intelligence Report
+      console.error(error);
 
-Question:
-"${question}"
+      setResponse(
+        "❌ Connection error."
+      );
 
-Recommendations:
+    }
 
-✅ Review cash flow.
-✅ Analyze expenses.
-✅ Forecast revenue.
-✅ Improve profitability.
-          `;
 
-          break;
+    setLoading(false);
 
-
-
-        case "Marketing Agent":
-
-          answer = `
-📢 Marketing Intelligence Report
-
-Question:
-"${question}"
-
-Recommendations:
-
-✅ Define your target audience.
-✅ Create content campaigns.
-✅ Optimize advertising.
-✅ Measure marketing ROI.
-          `;
-
-          break;
-
-
-
-        case "Document Agent":
-
-          answer = `
-📄 Document Intelligence Report
-
-Request:
-"${question}"
-
-I can help create:
-
-✅ Business proposals
-✅ Executive summaries
-✅ Reports
-✅ Meeting notes
-✅ Documentation
-          `;
-
-          break;
-
-
-
-        case "Analytics Agent":
-
-          answer = `
-📊 Analytics Intelligence Report
-
-Question:
-"${question}"
-
-Key metrics to monitor:
-
-✅ Revenue growth
-✅ Customer acquisition
-✅ Conversion rate
-✅ Retention rate
-✅ Sales performance
-          `;
-
-          break;
-
-
-
-        case "Support Agent":
-
-          answer = `
-🤖 Customer Support Intelligence
-
-Request:
-"${question}"
-
-Recommended actions:
-
-✅ Understand customer needs.
-✅ Provide a clear solution.
-✅ Follow up after resolution.
-✅ Record feedback.
-          `;
-
-          break;
-
-
-
-        default:
-
-          answer = `
-🤖 ${agentName}
-
-Processing request:
-
-"${question}"
-
-AI recommendation generated.
-          `;
-
-      }
-
-
-      setResponse(answer);
-      setLoading(false);
-
-
-    }, 1200);
-
-
-  };
+  }
 
 
 
   return (
 
-    <div
-      className="
-      bg-gray-900
-      rounded-2xl
-      p-6
-      border
-      border-gray-800
-      "
-    >
+    <div className="bg-gray-900 rounded-xl p-6 border border-gray-800">
 
-
-      <h2 className="text-2xl font-bold mb-5">
+      <h2 className="text-2xl font-bold mb-4 text-white">
         🤖 Chat with {agentName}
       </h2>
-
 
 
       <textarea
 
         className="
-        w-full
-        bg-gray-800
-        rounded-xl
-        p-4
-        text-white
-        border
-        border-gray-700
+          w-full
+          bg-gray-800
+          text-white
+          rounded-lg
+          p-4
+          border
+          border-gray-700
         "
 
-        rows={5}
+        rows={4}
 
-        placeholder={`Ask ${agentName} a business question...`}
+        placeholder="Ask your AI agent..."
 
         value={question}
 
-        onChange={(e) => setQuestion(e.target.value)}
+        onChange={(e)=>setQuestion(e.target.value)}
 
       />
 
 
-
       <button
 
-        onClick={getResponse}
+        type="button"
+
+        onClick={sendQuestion}
+
+        disabled={loading}
 
         className="
-        mt-4
-        bg-blue-600
-        hover:bg-blue-700
-        px-6
-        py-3
-        rounded-xl
-        font-semibold
+          mt-4
+          bg-blue-600
+          hover:bg-blue-700
+          text-white
+          px-8
+          py-3
+          rounded-lg
+          font-bold
         "
 
       >
 
-        {loading ? "🤖 Thinking..." : "Send Request"}
+        {loading ? "🤖 Thinking..." : "🚀 Send to AI"}
 
       </button>
 
@@ -247,37 +132,32 @@ AI recommendation generated.
 
       {response && (
 
-        <div
-          className="
+        <div className="
           mt-6
           bg-gray-800
-          rounded-xl
+          text-white
+          rounded-lg
           p-5
           border
           border-blue-500
           whitespace-pre-line
-          "
-        >
+        ">
 
-          <h3 className="
-            text-blue-400
-            font-bold
-            mb-3
-          ">
-            {agentName} Analysis
-          </h3>
+          <strong className="text-blue-400">
+            {agentName} Response:
+          </strong>
 
+          <br />
+          <br />
 
           {response}
-
 
         </div>
 
       )}
 
-
-
     </div>
 
   );
+
 }
