@@ -1,87 +1,72 @@
-import Link from "next/link";
-
 export default function Sidebar() {
-  const menuItems = [
-    { name: "Dashboard", icon: "🏠", href: "/" },
-    { name: "Sales Agent", icon: "💼", href: "/agents/sales" },
-    { name: "Finance Agent", icon: "💰", href: "/agents/finance" },
-    { name: "Marketing Agent", icon: "📢", href: "/agents/marketing" },
-    { name: "Document Agent", icon: "📄", href: "/agents/document" },
-    { name: "Analytics", icon: "📊", href: "/agents/analytics" },
-    { name: "AI Orchestrator", icon: "🚀", href: "/agents/orchestrator" },
-    { name: "Settings", icon: "⚙️", href: "/settings" },
-  ];
-
   return (
-    <aside className="w-72 min-h-screen bg-gray-950 border-r border-gray-800 p-6 flex flex-col">
+    <aside className="w-64 min-h-screen bg-gray-900 border-r border-gray-800 p-6">
 
-      {/* Brand */}
-      <div>
-        <h2 className="text-2xl font-bold text-white">
-          🚀 BizPilot AI
-        </h2>
-
-        <p className="text-sm text-gray-400 mt-2">
-          Intelligent Business Workforce
-        </p>
-      </div>
+      <h2 className="text-2xl font-bold text-white mb-8">
+        🚀 BizPilot AI
+      </h2>
 
 
-      {/* AI Status */}
-      <div className="mt-6 bg-gray-900 border border-gray-800 rounded-xl p-4">
-        <p className="text-green-400 font-semibold">
-          🟢 AI System Online
-        </p>
+      <nav className="space-y-4 text-gray-300">
 
-        <p className="text-xs text-gray-400 mt-1">
-          6 agents active
-        </p>
-      </div>
+        <a href="/" className="block hover:text-blue-400">
+          🏠 Dashboard
+        </a>
 
 
-      {/* Navigation */}
-      <nav className="mt-8 space-y-2 flex-1">
+        <a href="/agents/sales" className="block hover:text-blue-400">
+          💼 Sales Agent
+        </a>
 
-        {menuItems.map((item) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className="
-              flex items-center gap-3
-              px-4 py-3
-              rounded-xl
-              text-gray-300
-              hover:bg-blue-900
-              hover:text-white
-              transition
-            "
-          >
-            <span className="text-xl">
-              {item.icon}
-            </span>
 
-            <span>
-              {item.name}
-            </span>
+        <a href="/agents/finance" className="block hover:text-blue-400">
+          💰 Finance Agent
+        </a>
 
-          </Link>
-        ))}
+
+        <a href="/agents/marketing" className="block hover:text-blue-400">
+          📢 Marketing Agent
+        </a>
+
+
+        <a href="/agents/document" className="block hover:text-blue-400">
+          📄 Document Agent
+        </a>
+
+
+        <a href="/agents/analytics" className="block hover:text-blue-400">
+          📊 Analytics Agent
+        </a>
+
+
+        <a href="/agents/support" className="block hover:text-blue-400">
+          🤖 Support Agent
+        </a>
+
+
+        <a href="/agents/orchestrator" className="block hover:text-blue-400">
+          🚀 AI Orchestrator
+        </a>
+
+
+        <a href="#" className="block hover:text-blue-400">
+          ⚙️ Settings
+        </a>
+
 
       </nav>
 
 
-      {/* Footer */}
-      <div className="border-t border-gray-800 pt-5 text-sm text-gray-400">
+      <div className="mt-12 text-gray-400 text-sm">
 
-        <p>
-          Built by
-        </p>
+        <p>Built by</p>
 
         <p className="text-blue-400 font-semibold">
           Swathi Banda
         </p>
 
       </div>
+
 
     </aside>
   );

@@ -2,192 +2,212 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
 
-  try {
-
-    const { agentName, question } = await req.json();
+  const { agentName, question } = await req.json();
 
 
-    let answer = "";
+  let answer = "";
 
 
-    switch(agentName) {
+  switch(agentName) {
 
 
-      case "Sales Agent":
+    case "Sales Agent":
 
-        answer = `
-📈 Sales Agent Report
+      answer = `
+💼 SALES INTELLIGENCE REPORT
 
-Your question:
+Business Question:
 "${question}"
 
-Recommended strategy:
 
-✅ Identify your ideal customers.
-✅ Improve your sales funnel.
-✅ Follow up with leads faster.
-✅ Create strong offers.
-✅ Track conversion rates weekly.
+Analysis:
 
-Business Goal:
-Increase qualified leads and revenue growth.
-        `;
-
-        break;
+Your growth opportunity is improving customer acquisition and conversion.
 
 
+Recommended Actions:
 
-      case "Finance Agent":
+1. Lead Generation
+✅ Identify ideal customers
+✅ Build targeted outreach campaigns
+✅ Create referral opportunities
 
-        answer = `
-💰 Finance Agent Report
 
-Your question:
+2. Sales Conversion
+✅ Improve sales messaging
+✅ Follow up with prospects quickly
+✅ Track conversion rates
+
+
+3. Revenue Growth
+✅ Create premium offers
+✅ Increase customer retention
+
+
+Priority Score:
+92/100
+
+
+Expected Impact:
+High potential for revenue growth.
+`;
+
+      break;
+
+
+
+    case "Finance Agent":
+
+      answer = `
+💰 FINANCE INTELLIGENCE REPORT
+
+Business Question:
 "${question}"
 
-Financial recommendations:
 
-✅ Review monthly expenses.
-✅ Improve cash flow management.
-✅ Create revenue forecasts.
-✅ Monitor profitability.
-✅ Build emergency reserves.
+Recommendations:
 
-Business Goal:
-Create a financially healthy company.
-        `;
-
-        break;
+✅ Review monthly expenses
+✅ Improve cash flow visibility
+✅ Create revenue forecasts
+✅ Track profit margins
 
 
+Financial Health Score:
+88/100
 
-      case "Marketing Agent":
 
-        answer = `
-📢 Marketing Agent Report
+Expected Impact:
+Better financial control and profitability.
+`;
 
-Your question:
+      break;
+
+
+
+    case "Marketing Agent":
+
+      answer = `
+📢 MARKETING INTELLIGENCE REPORT
+
+Business Question:
 "${question}"
 
-Marketing strategy:
 
-✅ Define your target audience.
-✅ Create valuable content.
-✅ Improve social media presence.
-✅ Test advertising campaigns.
-✅ Measure marketing ROI.
+Strategy:
 
-Business Goal:
-Increase brand awareness and customer acquisition.
-        `;
-
-        break;
+✅ Define customer segments
+✅ Create valuable content
+✅ Improve social presence
+✅ Test advertising campaigns
+✅ Measure marketing ROI
 
 
+Marketing Score:
+90/100
 
-      case "Analytics Agent":
 
-        answer = `
-📊 Analytics Agent Report
+Expected Impact:
+Higher customer awareness and growth.
+`;
 
-Your question:
+      break;
+
+
+
+    case "Analytics Agent":
+
+      answer = `
+📊 ANALYTICS REPORT
+
+Business Question:
 "${question}"
 
-Important metrics:
+
+Key Metrics:
 
 ✅ Revenue growth
 ✅ Customer acquisition cost
 ✅ Conversion rate
-✅ Customer retention
-✅ Monthly performance trends
-
-Business Goal:
-Make smarter decisions using data.
-        `;
-
-        break;
+✅ Retention rate
+✅ Monthly performance
 
 
+Business Insight:
 
-      case "Document Agent":
+Data-driven decisions will improve performance.
+`;
 
-        answer = `
-📄 Document Agent
-
-Your request:
-"${question}"
-
-I can help prepare:
-
-✅ Business proposals
-✅ Investor summaries
-✅ Reports
-✅ Meeting notes
-✅ Project documentation
-
-Business Goal:
-Save time creating professional documents.
-        `;
-
-        break;
+      break;
 
 
 
-      case "Support Agent":
+    case "Document Agent":
 
-        answer = `
-🤖 Support Agent
-
-Customer request:
-"${question}"
-
-Recommended actions:
-
-✅ Understand customer needs.
-✅ Provide a clear solution.
-✅ Follow up quickly.
-✅ Collect feedback.
-
-Business Goal:
-Improve customer satisfaction.
-        `;
-
-        break;
-
-
-
-      default:
-
-        answer = `
-🚀 BizPilot AI Assistant
+      answer = `
+📄 DOCUMENT ASSISTANT
 
 Request:
 "${question}"
 
-Your AI business workspace is ready.
-        `;
 
-    }
+Available Documents:
 
-
-    return NextResponse.json({
-      answer,
-    });
-
-
-  } catch (error) {
+✅ Business Proposal
+✅ Investor Pitch
+✅ Executive Summary
+✅ Reports
+✅ Meeting Notes
 
 
-    return NextResponse.json(
-      {
-        error: "Demo AI failed",
-      },
-      {
-        status: 500,
-      }
-    );
+Ready to generate professional business documents.
+`;
 
+      break;
+
+
+
+    case "Support Agent":
+
+      answer = `
+🤖 CUSTOMER SUPPORT REPORT
+
+Customer Request:
+"${question}"
+
+
+Recommended Workflow:
+
+✅ Understand customer issue
+✅ Provide solution
+✅ Follow up
+✅ Record feedback
+
+
+Support Quality Score:
+95/100
+`;
+
+      break;
+
+
+
+    default:
+
+      answer = `
+🚀 BizPilot AI
+
+Your AI workforce is ready.
+
+Request:
+"${question}"
+`;
 
   }
+
+
+  return NextResponse.json({
+    answer
+  });
 
 }
